@@ -1,9 +1,9 @@
-#ifndef __AVM_DOUBLE_H__
-#define __AVM_DOUBLE_H__
+#ifndef __avm_elem_H__
+#define __avm_elem_H__
 
 #include "AObj.h"
 
-class avm_double :
+class avm_elem :
   public AObj
 {
   int         _prio;
@@ -12,8 +12,8 @@ class avm_double :
   std::string _type;
 
 public:
-  avm_double(void);
-  ~avm_double(void);
+  avm_elem(void);
+  ~avm_elem(void);
   
   IObject*  Add(const IOperand &object);
   IObject*  Subtract(const IOperand &object);
@@ -30,4 +30,4 @@ public:
   IObject* Clone() const;
 };
 
-#endif /* __AVM_DOUBLE_H__ */
+#endif /* __avm_elem_H__ */

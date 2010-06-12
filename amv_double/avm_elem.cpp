@@ -1,10 +1,11 @@
 #include <sstream>
 #include "avm_elem.h"
 
-avm_elem::avm_elem(void): _type("float"),
+avm_elem::avm_elem(void): _type("double"),
 		                      _value(),
 							  _valuestr()
-{}
+{
+}
 
 avm_elem::~avm_elem(void)
 {}
@@ -88,8 +89,7 @@ IObject*  avm_elem::Divide(const IOperand &object)
 void avm_elem::setObj(std::string const &val)
 {
   this->_valuestr = val;
-  std::istringstream iss( val );
-  iss >> this->_value;
+  this->_value = std::atof(val.c_str());
 }
 
 int   avm_elem::getprio() const
