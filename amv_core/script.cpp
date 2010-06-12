@@ -3,7 +3,7 @@
 #include "script.h"
 
 Script::Script(std::string dir)
-: error_(0)
+    : error_(0)
 {
     //ctor
 }
