@@ -9,7 +9,8 @@ class Script
         Script(std::string script);
         ~Script();
         bool getNextInstruction(std::string& new_instruction);
-        int const& getError();
+        int const& getError() const;
+        void run();
     private:
         int error_;
 };
