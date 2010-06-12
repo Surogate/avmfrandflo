@@ -2,19 +2,49 @@
 #include <iostream>
 #include "script.h"
 
-Script::Script(std::string dir)
-    : error_(0)
+Script::Script(ObjFactory& factory, std::string dir)
+    : error_(0), factory_(factory), ifs_(dir.data())
 {
-    //ctor
+    if (!ifs_.good())
+    {
+        std::cerr << "Can't open file " << dir << std::endl;
+        error_ = Script::invalid_file;
+    }
 }
 
 Script::~Script()
 {
-    //dtor
+    ifs_.close();
 }
 
-bool Script::getNextInstruction(std::string& new_instruction)
+void Script::clean(std::string&)
 {
+
+}
+
+bool Script::getNextInstruction(Instruction& instru)
+{
+    if (ifs_.good())
+    {
+        getline(ifs_, instru.instr);
+        unsigned int pos = std::string::npos;
+        if ((pos = instru.instr.find(";")) != std::string::npos)
+        {
+            instru.instr.erase(pos);
+        }
+        pos  = instru.instr.find_first_of(" ");
+        instru.bytecode = instru.instr.substr(0, pos);
+        if (pos != std::string::npos)
+        {
+            unsigned int pos2  = instru.instr.find_first_of("(");
+            instru.argument = instru.instr.substr(pos + 1, pos2);
+            if (pos2 != std::string::npos)
+            {
+                unsigned int pos3 = instru.instr.find_first_of(")");
+                instru.value = instru.instr.substr(pos2 + 1, pos3);
+            }
+        }
+    }
     return false;
 }
 
@@ -25,18 +55,20 @@ int const& Script::getError() const
 
 void Script::run()
 {
-    std::string instruction;
+    if (error_)
+        return ;
+    Instruction instru_;
 
-    while(getNextInstruction(instruction))
+    while(getNextInstruction(instru_) && !error_)
     {
-        //execute l'instruction
+
     }
     if (error_)
     {
-        std::cerr << "error at instruction " << instruction << std::endl;
+        std::cerr << "error at instruction " << instru_.instr << std::endl;
     }
     else
     {
-        std::cout << "le fichier c'est correctement executer" << std::endl;
+        std::cerr << "Script ok" << std::endl;
     }
 }

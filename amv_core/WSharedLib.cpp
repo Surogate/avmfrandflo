@@ -44,6 +44,6 @@ void WSharedLib::openLibFrom(std::string dir, std::vector<ASharedLib::lib_handle
         }
     }
     else
-        std::cerr << "invalid_handle" << std::endl;
+        std::cerr << "no shared lib found" << std::endl;
     FindClose(hFind);
 }
