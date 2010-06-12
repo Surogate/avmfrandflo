@@ -6,7 +6,8 @@
 class avm_elem :
   public AObj
 {
-  float	  _value;
+  int         _prio;
+  float	      _value;
   std::string _valuestr;
   std::string _type;
 

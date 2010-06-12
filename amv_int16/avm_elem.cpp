@@ -11,22 +11,78 @@ avm_elem::~avm_elem(void)
 
 IObject*  avm_elem::Add(const IOperand &object)
 {
-return (0);
+  AObj* res;
+  std::stringstream sortie;
+  long double temp2;
+  const AObj & tmp = static_cast<const AObj&>(object);
+  if (this->_prio > tmp.getprio())
+    res = this->newClone();
+  else
+    res = tmp.newClone();
+  
+  std::istringstream iss( tmp.ToString() );
+  iss >> temp2;
+  sortie << this->_value + temp2;
+  res->setObj(sortie.str());
+  return (res);
 }
 
 IObject*  avm_elem::Subtract(const IOperand &object)
 {
-return (0);
+  AObj* res;
+  std::stringstream sortie;
+  long double temp2;
+  const AObj & tmp = static_cast<const AObj&>(object);
+  if (this->_prio > tmp.getprio())
+    res = this->newClone();
+  else
+    res = tmp.newClone();
+  
+  std::istringstream iss( tmp.ToString() );
+  iss >> temp2;
+  sortie << this->_value - temp2;
+  res->setObj(sortie.str());
+  return (res);
 }
 
 IObject*  avm_elem::Multiply(const IOperand &object)
 {
-return (0);
+  AObj* res;
+  std::stringstream sortie;
+  long double temp2;
+  const AObj & tmp = static_cast<const AObj&>(object);
+  if (this->_prio > tmp.getprio())
+    res = this->newClone();
+  else
+    res = tmp.newClone();
+  
+  std::istringstream iss( tmp.ToString() );
+  iss >> temp2;
+  sortie << this->_value * temp2;
+  res->setObj(sortie.str());
+  return (res);
 }
 
 IObject*  avm_elem::Divide(const IOperand &object)
 {
-return (0);
+  AObj* res;
+  std::stringstream sortie;
+  long double temp2;
+  const AObj & tmp = static_cast<const AObj&>(object);
+
+  std::istringstream iss( tmp.ToString() );
+  iss >> temp2;
+  if (temp2 != 0)
+  {
+    if (this->_prio > tmp.getprio())
+      res = this->newClone();
+    else
+      res = tmp.newClone();
+    sortie << this->_value / temp2;
+    res->setObj(sortie.str());
+    return (res);
+  }
+  return 0;
 }
 
 void avm_elem::setObj(std::string const &val)
