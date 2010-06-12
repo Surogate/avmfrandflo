@@ -1,4 +1,5 @@
 
+#include <iostream>
 #include "LSharedLib.h"
 #ifndef WIN32
 
@@ -16,25 +17,32 @@ void* LSharedLib::getFunc(ASharedLib::lib_handler& hdl, std::string funcName)
 }
 
 bool LSharedLib::closeLib(ASharedLib::lib_handler& hdl)
-(
-    return dlclose(hdl);
-    }
-
-    void LSharedLib::openLibFrom(std::string dir, std::vector<ASharedLib::lib_handler>& tab)
 {
+    return dlclose(hdl);
+}
+
+void LSharedLib::openLibFrom(std::string dir, std::vector<ASharedLib::lib_handler>& tab)
+{
+	if (dir == "")
+		dir = ".";
     DIR* handler = opendir(dir.data());
+    struct dirent *dirent_;
     std::string name;
+
     int pos;
 
-    if (DIR)
+    if (handler)
     {
-        while ((name = readdir(handler)->d_name)
-    {
-        if ((pos = name.find(.so)) > 0)
-            {
-                tab.push_back(LoadLib(name));
-            }
-        }
+        while ((dirent_ = readdir(handler)))
+		{
+        	name = dir;
+        	name += "/";
+        	name += dirent_->d_name;
+			if ((pos = name.find(".so")) > 0)
+				{
+					tab.push_back(LoadLib(name));
+				}
+		}
     }
 }
 

@@ -35,7 +35,8 @@ public:
         false_assert = 3,
         unknow_type = 4,
         not_enough_object = 5,
-        divide_by_zero = 6
+        divide_by_zero = 6,
+        empty_stack = 7
     };
 
 private:

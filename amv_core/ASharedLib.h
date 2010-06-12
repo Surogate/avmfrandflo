@@ -22,7 +22,7 @@ public:
 # ifdef WIN32
     typedef HMODULE lib_handler;
 #  else
-    typedef (void*) lib_handler;
+    typedef void* lib_handler;
 # endif
     virtual ~ASharedLib() {}
     virtual lib_handler	LoadLib(std::string) = 0;

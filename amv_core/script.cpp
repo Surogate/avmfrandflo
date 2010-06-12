@@ -48,13 +48,15 @@ bool Script::getNextInstruction()
             if (pos != std::string::npos)
             {
                 unsigned int pos2  = instru_.instr.find_first_of("(");
+                pos2 = pos2 - pos - 1;
                 instru_.argument = instru_.instr.substr(pos + 1, pos2);
                 if (pos2 != std::string::npos)
                 {
-                    unsigned int pos3 = instru_.instr.find_first_of(")");
-                    instru_.value = instru_.instr.substr(pos2 + 1, pos3);
+                    unsigned int pos3 = instru_.instr.find_first_of(")") - (instru_.instr.find_first_of("(") + 1);
+                    instru_.value = instru_.instr.substr(instru_.instr.find_first_of("(") + 1, pos3);
                 }
             }
+            return true;
         }
     }
     return false;
@@ -69,13 +71,14 @@ void Script::run()
 {
     if (error_)
         return ;
+
     while(getNextInstruction() && !error_)
     {
         execute();
     }
     if (error_)
     {
-        std::cerr << "error at instruction " << instru_.instr << std::endl;
+        std::cerr << "error at instruction " << instru_.bytecode << std::endl;
     }
     else
     {
@@ -85,14 +88,17 @@ void Script::run()
 
 void Script::execute()
 {
+	if (instru_.instr == "")
+		return;
     std::map< std::string, func_ptr >::const_iterator it = func_tab.find(instru_.bytecode);
 
     if (it != func_tab.end())
     {
-        (this->*func_tab[instru_.bytecode])();
+        (this->*(it->second))();
     }
     else
     {
+    	std::cerr << "unknow bytecode" << std::endl;
         error_ = invalid_bytecode;
     }
 }
@@ -106,6 +112,7 @@ void Script::do_push()
     }
     else
     {
+    	std::cerr << "unknow argument" << std::endl;
         error_ = unknow_type;
     }
 }
@@ -200,6 +207,11 @@ void Script::do_pop()
 
 void Script::do_assert()
 {
+	if (stack_.empty())
+	{
+		std::cerr << "assert fail !!11" << std::endl;
+		error_ = empty_stack;
+	}
     AObj* arg = factory_.creat(instru_.argument, instru_.value);
 
     if (!arg)
@@ -208,6 +220,7 @@ void Script::do_assert()
     }
     if (!(static_cast<IObject*>(stack_.top())->Equals(*arg)))
     {
+    	std::cerr << "assert fail !!11" << std::endl;
         error_ = false_assert;
     }
 }

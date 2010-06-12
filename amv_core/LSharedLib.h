@@ -4,7 +4,7 @@
 
 #include "ASharedLib.h"
 
-class LSharedLib
+class LSharedLib : public ASharedLib
 {
 public:
     virtual ~LSharedLib();

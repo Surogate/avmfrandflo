@@ -1,4 +1,5 @@
 #include <sstream>
+#include <iostream>
 #include "avm_elem.h"
 
 avm_elem::avm_elem(void): _value(),
@@ -85,10 +86,10 @@ IObject*  avm_elem::Divide(const IOperand &object)
   return 0;
 }
 
-void avm_elem::setObj(std::string const &val)
+void avm_elem::setObj(std::string val)
 {
   this->_valuestr = val;
-  std::istringstream iss( val );
+  std::istringstream iss( val.data() );
   iss >> this->_value;
 }
 
@@ -99,9 +100,7 @@ int   avm_elem::getprio() const
 
 AObj* avm_elem::newClone() const
 {
-  AObj * res = new avm_elem;
-  res->setObj(this->_valuestr);
-  return res;
+  return new avm_elem;
 }
 
 const std::string& avm_elem::ToString() const

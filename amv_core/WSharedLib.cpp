@@ -1,5 +1,6 @@
 
 #include "WSharedLib.h"
+#ifdef WIN32
 
 WSharedLib::~WSharedLib()
 {}
@@ -47,3 +48,4 @@ void WSharedLib::openLibFrom(std::string dir, std::vector<ASharedLib::lib_handle
         std::cerr << "no shared lib found" << std::endl;
     FindClose(hFind);
 }
+#endif
