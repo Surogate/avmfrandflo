@@ -49,6 +49,7 @@ CXXFLAGS		+=	-W -Wall -ansi -pedantic $(IFLAGS)
 
 $(NAME)		:	$(FILES_O)
 		$(CXX) -shared -o $(NAME) $(FILES_O) $(LFLAGS)
+		mv $(NAME) ../lib
 
 all		:	$(NAME)
 

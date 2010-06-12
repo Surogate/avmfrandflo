@@ -32,7 +32,7 @@ ObjFactory::~ObjFactory()
 
 AObj* ObjFactory::creat(std::string& type, std::string value)
 {
-    std::map< std::string, AObj* >::const_iterator cit(factory_.find(type));
+    std::map< std::string, AObj* >::iterator cit(factory_.find(type));
 
     if (cit != factory_.end() && value != "")
     {
