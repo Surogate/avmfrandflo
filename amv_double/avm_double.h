@@ -6,6 +6,7 @@
 class avm_double :
   public AObj
 {
+  int         _prio;
   double	  _value;
   std::string _valuestr;
   std::string _type;
@@ -20,6 +21,7 @@ public:
   IObject*  Divide(const IOperand &object);
   
   void	setObj(std::string const &);
+  int   getprio() const;
   AObj* newClone() const;
   
   const std::string& ToString() const;

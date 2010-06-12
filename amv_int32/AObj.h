@@ -9,6 +9,7 @@ class	AObj : public IOperand
 public:
   virtual ~AObj() {}
   virtual void	setObj(std::string const &) = 0;
+  virtual int   getprio() const = 0;
   virtual AObj *newClone() const = 0;
 };
 

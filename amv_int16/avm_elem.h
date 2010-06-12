@@ -20,6 +20,7 @@ public:
   IObject*  Divide(const IOperand &object);
   
   void	setObj(std::string const &);
+  int   getprio() const;
   AObj* newClone() const;
   
   const std::string& ToString() const;

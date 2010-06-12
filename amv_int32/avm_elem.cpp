@@ -36,6 +36,11 @@ void avm_elem::setObj(std::string const &val)
   iss >> this->_value;
 }
 
+int   avm_elem::getprio() const
+{
+  return this->_prio;
+}
+
 AObj* avm_elem::newClone() const
 {
   AObj * res = new avm_elem;
