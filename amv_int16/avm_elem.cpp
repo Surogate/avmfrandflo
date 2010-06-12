@@ -1,9 +1,9 @@
 #include <sstream>
 #include "avm_elem.h"
 
-avm_elem::avm_elem(void): _type("int16"),
-		                      _value(),
-							  _valuestr()
+avm_elem::avm_elem(void): _value(),
+						  _valuestr(),
+						  _type("int16")
 {}
 
 avm_elem::~avm_elem(void)
