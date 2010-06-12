@@ -34,7 +34,7 @@ AObj* ObjFactory::creat(std::string& type, std::string value)
 {
     std::map< std::string, AObj* >::const_iterator cit(factory_.find(type));
 
-    if (cit != factory_.end())
+    if (cit != factory_.end() && value != "")
     {
         AObj* new_Obj = cit->second->newClone();
         new_Obj->setObj(value);
