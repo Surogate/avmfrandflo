@@ -10,7 +10,7 @@
 class ObjFactory
 {
 public:
-    ObjFactory(ASharedLib& shared, std::string sharedDir);
+    ObjFactory(ASharedLib& shared, std::string sharedDir = "");
     ~ObjFactory();
     AObj* creat(std::string& type, std::string value = "0");
 
