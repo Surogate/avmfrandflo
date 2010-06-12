@@ -112,7 +112,7 @@ void Script::do_push()
     }
     else
     {
-    	std::cerr << "unknow argument" << std::endl;
+        std::cerr << "unknow argument " << instru_.argument << std::endl;
         error_ = unknow_type;
     }
 }
@@ -129,7 +129,8 @@ void Script::do_add()
         stack_.pop();
         IOperand* ope2 = stack_.top();
         stack_.pop();
-        stack_.push(static_cast< AObj* >(ope1->Add(*ope2)));
+        AObj* result = static_cast< AObj* >(ope1->Add(*ope2));
+        stack_.push(result);
     }
 }
 
@@ -193,6 +194,7 @@ void Script::do_dump()
 {
     while (!stack_.empty())
     {
+        std::cout << stack_.top()->GetType() << "(" << stack_.top()->ToString() << ")" << std::endl;
         stack_.pop();
     }
 }
@@ -211,6 +213,7 @@ void Script::do_assert()
 	{
 		std::cerr << "assert fail !!11" << std::endl;
 		error_ = empty_stack;
+        return ;
 	}
     AObj* arg = factory_.creat(instru_.argument, instru_.value);
 
@@ -224,3 +227,4 @@ void Script::do_assert()
         error_ = false_assert;
     }
 }
+ 
