@@ -9,16 +9,25 @@
 #endif
 
 
-int main()
+int main(int ac, char** av)
 {
+    if (ac < 2)
+    {
+        std::cout << "Usage ./amv [Script ...]" << std::endl;
+        return 0;
+    }
+
 #ifdef WIN32
     WSharedLib shared;
 #else
     LSharedLib shared;
 #endif
 
-    Script file("test.src");
-
-    file.run();
+    ObjFactory factory(shared);
+    for (int i = 1; i < ac; ++i)
+    {
+        Script file(factory, av[i]);
+        file.run();
+    }
     return 0;
 }

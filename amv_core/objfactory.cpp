@@ -5,7 +5,7 @@ typedef AObj* (*func_ptr)();
 ObjFactory::ObjFactory(ASharedLib& shared, std::string libDir)
     : shared_(shared)
 {
-    shared_.openLibFrom("lib", tab_);
+    shared_.openLibFrom(libDir, tab_);
     for (unsigned int i = 0; i < tab_.size(); ++i)
     {
         func_ptr ptr = reinterpret_cast<func_ptr>(shared_.getFunc(tab_[i], "getInstance"));
