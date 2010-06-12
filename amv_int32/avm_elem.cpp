@@ -2,7 +2,8 @@
 #include <iostream>
 #include "avm_elem.h"
 
-avm_elem::avm_elem(void): _value(),
+avm_elem::avm_elem(void): _prio(1),
+                          _value(),
 						  _valuestr(),
 						  _type("int32")
 {}
