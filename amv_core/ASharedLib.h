@@ -20,15 +20,15 @@ class ASharedLib
 public:
 
 # ifdef WIN32
-	typedef HMODULE lib_handler;
+    typedef HMODULE lib_handler;
 #  else
-	typedef (void*) lib_handler;
+    typedef (void*) lib_handler;
 # endif
-	virtual ~ASharedLib(){}
-	virtual lib_handler	LoadLib(std::string) = 0;
-	virtual void* getFunc(lib_handler&, std::string) = 0;
-	virtual	bool closeLib(lib_handler&) = 0;
-	virtual void openLibFrom(std::string dir, std::vector<ASharedLib::lib_handler>& tab) = 0;
+    virtual ~ASharedLib() {}
+    virtual lib_handler	LoadLib(std::string) = 0;
+    virtual void* getFunc(lib_handler&, std::string) = 0;
+    virtual	bool closeLib(lib_handler&) = 0;
+    virtual void openLibFrom(std::string dir, std::vector<ASharedLib::lib_handler>& tab) = 0;
 };
 
 #endif
