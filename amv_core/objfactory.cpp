@@ -28,6 +28,10 @@ ObjFactory::~ObjFactory()
         ++it;
     }
     factory_.clear();
+    for (unsigned int i = 0; i < tab_.size(); ++i)
+    {
+      shared_.closeLib(tab_[i]);
+    }
 }
 
 AObj* ObjFactory::creat(std::string& type, std::string value)
